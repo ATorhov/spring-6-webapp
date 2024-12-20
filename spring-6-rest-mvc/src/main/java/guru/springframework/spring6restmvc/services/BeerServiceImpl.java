@@ -152,12 +152,13 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public void removeById(UUID beerId) {
+    public Boolean removeById(UUID beerId) {
         beerMap.remove(beerId);
+        return true;
     }
 
     @Override
-    public void patchBeerById(UUID beerId, BeerDTO beer) {
+    public Optional<BeerDTO> patchBeerById(UUID beerId, BeerDTO beer) {
         BeerDTO beerToPatch = beerMap.get(beerId);
         boolean updated = false;
 
@@ -188,5 +189,6 @@ public class BeerServiceImpl implements BeerService {
         if (updated) {
             beerToPatch.setUpdatedAt(LocalDateTime.now());
         }
+        return Optional.of(beerToPatch);
     }
 }
